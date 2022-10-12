@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import builder.DefaultBuilder;
+import builder.GeometryBuilder;
 import input.components.*;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
@@ -89,16 +90,15 @@ public class JSONParser
 
 		JSONObject fig = JSONroot.getJSONObject(JSON_Constants.JSON_FIGURE);
 		
-		DefaultBuilder builder = new DefaultBuilder();
+		DefaultBuilder builder = new GeometryBuilder();
 
-		String description = parseDescription(fig.getString(JSON_Constants.JSON_DESCRIPTION), builder);
+		String description = parseDescription(fig.getString(JSON_Constants.JSON_DESCRIPTION));
 		PointNodeDatabase points = parsePoints(fig.getJSONArray(JSON_Constants.JSON_POINT_S), builder);
 		
 		SegmentNodeDatabase segments = parseSegments(fig.getJSONArray(JSON_Constants.JSON_SEGMENTS), points, builder);
 		
 		 
-		
-		return new FigureNode(description, points, segments);
+		return builder.buildFigureNode(description, points, segments);
 	}
 	
 	/**
@@ -106,9 +106,8 @@ public class JSONParser
 	 * @param figure JSONObject for the figure
 	 * @return String value for the "Description" key
 	 */
-	private String parseDescription(String description, DefaultBuilder builder)
+	private String parseDescription(String description)
 	{
-		
 		return description;
 	}
 	
@@ -124,8 +123,9 @@ public class JSONParser
 		for(int i = 0; i < arr.length(); i++)
 		{
 			JSONObject JSONpoint = arr.getJSONObject(i);
-			PointNode point = new PointNode(JSONpoint.getString(JSON_Constants.JSON_NAME), JSONpoint.getInt(JSON_Constants.JSON_X),
-											JSONpoint.getInt(JSON_Constants.JSON_Y));
+			PointNode point = builder.buildPointNode(JSONpoint.getString(JSON_Constants.JSON_NAME), 
+														JSONpoint.getInt(JSON_Constants.JSON_X),
+														JSONpoint.getInt(JSON_Constants.JSON_Y));
 			points.put(point);
 		}
 		
@@ -155,24 +155,16 @@ public class JSONParser
 			
 			// gets array at current key and calls helper to add them to an array list
 			JSONArray JSONedgeEnds = JSONseg.getJSONArray(currentKey);
-			List<PointNode> edgeEnds = makeSegmentArrayList(JSONedgeEnds, points);
 			
-			snd.addAdjacencyList(edgeStart, edgeEnds);
+			for(int j = 0; j < JSONedgeEnds.length(); j++)
+			{
+				//adds each point edgeStart connects to using name string pulled from JSONedgeEnds to get from PND
+				builder.addSegmentToDatabase(snd, edgeStart, points.getPoint(JSONedgeEnds.getString(i)));
+				
+			}			
 		}
 		
 		return snd;
 	}
 	
-	private List<PointNode> makeSegmentArrayList(JSONArray arr, PointNodeDatabase points)
-	{
-		List<PointNode> edgeEnds = new ArrayList<>();
-		for(int i = 0; i < arr.length(); i++)
-		{
-			//adds each point in the PND using name string pulled from arr
-			
-			edgeEnds.add(points.getPoint(arr.getString(i)));
-		}
-		
-		return edgeEnds;
-	}
 }

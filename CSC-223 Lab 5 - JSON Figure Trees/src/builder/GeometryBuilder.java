@@ -31,9 +31,10 @@ public class GeometryBuilder extends DefaultBuilder {
         return new SegmentNodeDatabase();
     }
 	
+	@Override
 	public void addSegmentToDatabase(SegmentNodeDatabase segments, PointNode from, PointNode to)
     {
-    	//super(segments, from, to);
+    	super.addSegmentToDatabase(segments, from, to);
     }
 	
 	@Override
