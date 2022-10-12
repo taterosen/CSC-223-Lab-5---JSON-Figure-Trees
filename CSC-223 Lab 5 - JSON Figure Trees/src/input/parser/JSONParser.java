@@ -146,13 +146,15 @@ public class JSONParser
 		{
 			JSONObject JSONseg = arr.getJSONObject(i);
 			
+			// gets keys from current segment(just one)
 			Iterator<String> segKeys = JSONseg.keys();
 			String currentKey = segKeys.next();
 
 			PointNode edgeStart = points.getPoint(currentKey);
 			
+			// gets array at current key and calls helper to add them to an array list
 			JSONArray JSONedgeEnds = JSONseg.getJSONArray(currentKey);
-			List<PointNode> edgeEnds = parseSegmentsHelper(JSONedgeEnds, points);
+			List<PointNode> edgeEnds = makeSegmentArrayList(JSONedgeEnds, points);
 			
 			snd.addAdjacencyList(edgeStart, edgeEnds);
 		}
@@ -160,11 +162,13 @@ public class JSONParser
 		return snd;
 	}
 	
-	private List<PointNode> parseSegmentsHelper(JSONArray arr, PointNodeDatabase points)
+	private List<PointNode> makeSegmentArrayList(JSONArray arr, PointNodeDatabase points)
 	{
 		List<PointNode> edgeEnds = new ArrayList<>();
 		for(int i = 0; i < arr.length(); i++)
 		{
+			//adds each point in the PND using name string pulled from arr
+			
 			edgeEnds.add(points.getPoint(arr.getString(i)));
 		}
 		
