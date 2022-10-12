@@ -33,7 +33,7 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	}
 
 	@Override
-	public Object visitSegmentDatabaseNode(SegmentNodeDatabase node, Object o)
+	public Object visitSegmentNodeDatabase(SegmentNodeDatabase node, Object o)
 	{
         // TODO
 		
