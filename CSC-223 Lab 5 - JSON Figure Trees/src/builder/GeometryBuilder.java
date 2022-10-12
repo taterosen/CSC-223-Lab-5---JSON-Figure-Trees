@@ -1,6 +1,12 @@
-package input.builder;
+package builder; 
 
 import java.util.List;
+
+import input.components.FigureNode;
+import input.components.point.PointNode;
+import input.components.point.PointNodeDatabase;
+import input.components.segment.SegmentNode;
+import input.components.segment.SegmentNodeDatabase;
 
 /**
  * 
@@ -27,7 +33,7 @@ public class GeometryBuilder extends DefaultBuilder {
 	
 	public void addSegmentToDatabase(SegmentNodeDatabase segments, PointNode from, PointNode to)
     {
-    	super(segments, from, to);
+    	//super(segments, from, to);
     }
 	
 	@Override

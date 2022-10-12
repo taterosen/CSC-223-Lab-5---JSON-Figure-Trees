@@ -24,7 +24,7 @@
  *  @date 10/5/2022
  */
  
- package input.parser;
+ package parser;
 
 
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import builder.DefaultBuilder;
 import input.components.*;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
@@ -88,7 +89,7 @@ public class JSONParser
 
 		JSONObject fig = JSONroot.getJSONObject(JSON_Constants.JSON_FIGURE);
 		
-		DefaultBuilder builder = new DefaultBuilder():
+		DefaultBuilder builder = new DefaultBuilder();
 
 		String description = parseDescription(fig.getString(JSON_Constants.JSON_DESCRIPTION), builder);
 		PointNodeDatabase points = parsePoints(fig.getJSONArray(JSON_Constants.JSON_POINT_S), builder);
@@ -118,7 +119,7 @@ public class JSONParser
 	 */
 	private PointNodeDatabase parsePoints(JSONArray arr, DefaultBuilder builder)
 	{
-		PointNodeDatabase points = builder.buildPointNodeDatabase();
+		PointNodeDatabase points = builder.buildPointDatabaseNode(null);
 		
 		for(int i = 0; i < arr.length(); i++)
 		{
