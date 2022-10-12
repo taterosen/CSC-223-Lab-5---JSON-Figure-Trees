@@ -5,6 +5,7 @@ import java.util.Set;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
+import input.visitor.ComponentNodeVisitor;
 
 /**
  * A basic figure consists of points, segments, and an optional description
@@ -51,6 +52,12 @@ public class FigureNode implements ComponentNode
 		
 		sb.append(indent(level) + "}\n");
 		
+	}
+	
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o)
+	{
+		return visitor.visitFigureNode(this,  o);
 	}
 	
 }

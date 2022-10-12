@@ -16,7 +16,7 @@ public interface ComponentNodeVisitor
 {
 	Object visitFigureNode(FigureNode node, Object o);
 
-	Object visitSegmentDatabaseNode(SegmentNodeDatabase node, Object o);
+	Object visitSegmentNodeDatabase(SegmentNodeDatabase node, Object o);
 	
 	Object visitSegmentNode(SegmentNode node, Object o);
 	

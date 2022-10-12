@@ -2,6 +2,7 @@ package input.components.segment;
 
 import input.components.ComponentNode;
 import input.components.point.PointNode;
+import input.visitor.ComponentNodeVisitor;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -131,5 +132,11 @@ public class SegmentNodeDatabase implements ComponentNode {
 			}
 		
 		sb.append(indent(level) + "}\n");
+	}
+	
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o)
+	{
+		return visitor.visitSegmentNodeDatabase(this,  o);
 	}
 }

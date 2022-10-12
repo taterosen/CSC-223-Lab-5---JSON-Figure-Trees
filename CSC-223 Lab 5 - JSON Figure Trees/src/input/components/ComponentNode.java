@@ -1,5 +1,7 @@
 package input.components;
 
+import input.visitor.ComponentNodeVisitor;
+
 public interface ComponentNode
 {
 	/**
@@ -8,6 +10,8 @@ public interface ComponentNode
 	 * @param level
 	 */
 	void unparse(StringBuilder sb, int level);
+	
+	Object accept(ComponentNodeVisitor visitor, Object o);
 	
 	/**
 	 * Indents the number of times specified by a given int.

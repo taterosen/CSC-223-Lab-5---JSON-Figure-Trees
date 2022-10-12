@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import input.components.ComponentNode;
+import input.visitor.ComponentNodeVisitor;
 import utilities.math.MathUtilities;
 
 /**
@@ -135,5 +136,10 @@ public class PointNodeDatabase implements ComponentNode {
 		sb.append(indent(level) + "}\n");
 	}
 
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o)
+	{
+		return visitor.visitPointNodeDatabase(this,  o);
+	}
 
 }

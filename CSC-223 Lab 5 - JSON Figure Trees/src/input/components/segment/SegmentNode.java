@@ -1,6 +1,8 @@
 package input.components.segment;
 
+import input.components.ComponentNode;
 import input.components.point.PointNode;
+import input.visitor.ComponentNodeVisitor;
 
 /**
  * A utility class only for representing ONE segment
@@ -8,7 +10,7 @@ import input.components.point.PointNode;
  * @author brycenaddison
  * @date Wed Aug 31 2022
  */
-public class SegmentNode {
+public class SegmentNode implements ComponentNode{
 	protected PointNode _point1;
 	protected PointNode _point2;
 
@@ -66,5 +68,11 @@ public class SegmentNode {
 	@Override
 	public String toString() {
 		return String.format("<%s, %s>", this._point1.toString(), this._point2.toString());
+	}
+	
+	@Override
+	public Object accept(ComponentNodeVisitor visitor, Object o)
+	{
+		return visitor.visitSegmentNode(this,  o);
 	}
 }
