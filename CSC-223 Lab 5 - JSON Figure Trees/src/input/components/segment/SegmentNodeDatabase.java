@@ -22,6 +22,10 @@ public class SegmentNodeDatabase implements ComponentNode {
     public SegmentNodeDatabase() {
         this._adjLists = new HashMap<>();
     }
+    
+    public Map<PointNode, Set<PointNode>> getAdjList() {
+    	return _adjLists;
+    }
 
     /**
      * Create a new SegmentNode database from a map of points and adjacency lists.
