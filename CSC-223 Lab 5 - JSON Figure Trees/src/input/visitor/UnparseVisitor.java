@@ -28,16 +28,21 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		StringBuilder sb = pair.getKey();
 		int level = pair.getValue();
 		
-		sb.append(StringUtilities.indent(level) + "Figure\n{\n");
+		sb.append(StringUtilities.indent(level) + "Figure \n");
+
+		sb.append(StringUtilities.indent(level) + "{\n");
+
+		AbstractMap.SimpleEntry<StringBuilder, Integer> newPair = new AbstractMap.SimpleEntry<>(sb, level +1);
 		
         // unparse description
-		sb.append(StringUtilities.indent(level + 1) + "Description : \"" + node.getDescription() + "\"\n");
+		sb.append(StringUtilities.indent(level +1));
+		sb.append("Description : \"" + node.getDescription() + "\"");
 		
 		//unparse points
-		node.getPointsDatabase().unparse(sb, level + 1);
+		node.getPointsDatabase().accept(this, newPair);
 		
 		//unparse segments
-		node.getSegments().unparse(sb, level + 1);
+		node.getSegments().accept(this, newPair);
 		
 		sb.append(StringUtilities.indent(level) + "}\n");
 		
@@ -55,7 +60,6 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		int level = pair.getValue();
 				
 		sb.append(StringUtilities.indent(level) + "Segments:\n" + StringUtilities.indent(level) + "{\n");
-		
 		
 		for(PointNode p : node.getAdjList().keySet()) {
 			
@@ -86,7 +90,19 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNodeDatabase(PointNodeDatabase node, Object o)
 	{
-        // TODO
+		// Unpack the input object containing a Stringbuilder and an indentation level
+		@SuppressWarnings("unchecked")
+		AbstractMap.SimpleEntry<StringBuilder, Integer> pair = (AbstractMap.SimpleEntry<StringBuilder, Integer>)(o);
+		StringBuilder sb = pair.getKey();
+		int level = pair.getValue();
+		
+		sb.append(StringUtilities.indent(level) + "Points:\n" + StringUtilities.indent(level) +  "{\n");
+		
+		for(PointNode p : node.getPoints()) {
+			p.unparse(sb, level + 1);
+		}
+		
+		sb.append(StringUtilities.indent(level) + "}\n");
 		
         return null;
 	}
@@ -94,7 +110,14 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNode(PointNode node, Object o)
 	{
-        // TODO
+		// Unpack the input object containing a Stringbuilder and an indentation level
+				@SuppressWarnings("unchecked")
+				AbstractMap.SimpleEntry<StringBuilder, Integer> pair = (AbstractMap.SimpleEntry<StringBuilder, Integer>)(o);
+				StringBuilder sb = pair.getKey();
+				int level = pair.getValue();
+				
+				sb.append(StringUtilities.indent(level) +"Point(" + node.getName() + ")(" + node.getX() + 
+						", " + node.getY() + ")\n");
         
         return null;
 	}

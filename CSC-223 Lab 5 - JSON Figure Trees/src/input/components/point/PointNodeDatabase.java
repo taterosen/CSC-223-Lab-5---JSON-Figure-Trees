@@ -25,6 +25,10 @@ public class PointNodeDatabase implements ComponentNode {
 
 	}
 	
+	public Set<PointNode> getPoints(){
+		return _points;
+	}
+	
 	/**
 	 * create PointNodeDatabase with list of point nodes in it
 	 * @param list of PointNodes 
