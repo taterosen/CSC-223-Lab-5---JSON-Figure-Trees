@@ -40,6 +40,7 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		sb.append(StringUtilities.indent(level +1));
 		sb.append("Description : \"" + node.getDescription() + "\"");
 		
+		sb.append(StringUtilities.indent(level) + "\n");
 		//calls visitPointsDatabase
 		node.getPointsDatabase().accept(this, newPair);
 		
