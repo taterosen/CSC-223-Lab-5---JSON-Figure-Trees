@@ -24,7 +24,7 @@
  *  @date 10/5/2022
  */
  
- package parser;
+package parser;
 
 
 import java.util.ArrayList;
@@ -43,6 +43,7 @@ import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
 import input.exception.ParseException;
+
 
 public class JSONParser
 {
@@ -118,7 +119,7 @@ public class JSONParser
 	 */
 	private PointNodeDatabase parsePoints(JSONArray arr, DefaultBuilder builder)
 	{
-		PointNodeDatabase points = builder.buildPointDatabaseNode(null);
+		List<PointNode> pointsToAdd = new ArrayList<PointNode>();
 		
 		for(int i = 0; i < arr.length(); i++)
 		{
@@ -126,8 +127,10 @@ public class JSONParser
 			PointNode point = builder.buildPointNode(JSONpoint.getString(JSON_Constants.JSON_NAME), 
 														JSONpoint.getInt(JSON_Constants.JSON_X),
 														JSONpoint.getInt(JSON_Constants.JSON_Y));
-			points.put(point);
+			pointsToAdd.add(point);
 		}
+		
+		PointNodeDatabase points = builder.buildPointDatabaseNode(pointsToAdd);
 		
 		return points;
 	}
@@ -159,7 +162,7 @@ public class JSONParser
 			for(int j = 0; j < JSONedgeEnds.length(); j++)
 			{
 				//adds each point edgeStart connects to using name string pulled from JSONedgeEnds to get from PND
-				builder.addSegmentToDatabase(snd, edgeStart, points.getPoint(JSONedgeEnds.getString(i)));
+				builder.addSegmentToDatabase(snd, edgeStart, points.getPoint(JSONedgeEnds.getString(j)));
 				
 			}			
 		}
