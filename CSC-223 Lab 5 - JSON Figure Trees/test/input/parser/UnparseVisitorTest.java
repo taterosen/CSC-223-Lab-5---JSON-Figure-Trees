@@ -25,13 +25,13 @@ class UnparseVisitorTest {
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
 		
-		String expected ="Figure \n"
+		String expected = "Figure \n"
 				+ "{\n"
 				+ "    Description : \"One line segment consisting of two points on y-axis.\"\n"
 				+ "    Points:\n"
 				+ "    {\n"
-				+ "	       Point(A)(0.0, 0.0)\n"
-				+ "	       Point(B)(0.0, 1.0)\n"
+				+ "        Point(A)(0.0, 0.0)\n"
+				+ "        Point(B)(0.0, 1.0)\n"
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
@@ -41,8 +41,7 @@ class UnparseVisitorTest {
 				+ "}\n";
 		
 		assertEquals(expected, sb.toString());
-		System.out.print(sb.toString());
-		
+		//System.out.print(sb.toString());
 	}
-
 }
+
