@@ -7,7 +7,7 @@
 //          A---B
 
 {"Figure" :
-	{ "Description" : "Tri Quad Shape .",
+	{ "Description" : "Tri Quad Shape.",
 		"Points" : [
 			{ "name": "A", "x" : 4, "y" : 0 },
 			{ "name": "B", "x" : 8, "y" : 0 },
