@@ -20,6 +20,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/lineseg.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -49,6 +50,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/single_triangle.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -80,6 +82,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/square.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -113,6 +116,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/collinear_line_segments.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -150,6 +154,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/crossing_symmetric_triangle.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -185,6 +190,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/fully_connected_irregular_polygon.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -221,6 +227,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/snake.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
@@ -260,6 +267,7 @@ class UnparseVisitorTest {
 		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/Tri_Quad.json");
 		ComponentNode node = Parse.parse(figureStr);
 		
+		//pack the string builder and the level to send to figure node
 		StringBuilder sb = new StringBuilder();
 		UnparseVisitor unparser = new UnparseVisitor();
 		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
