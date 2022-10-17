@@ -19,6 +19,9 @@ import utilities.io.StringUtilities;
 //
 public class UnparseVisitor implements ComponentNodeVisitor
 {
+	/**
+	 * Populates string object to unparse FigureNodes as we visit
+	 */
 	@Override
 	public Object visitFigureNode(FigureNode node, Object o)
 	{
@@ -40,7 +43,9 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		sb.append(StringUtilities.indent(level +1));
 		sb.append("Description : \"" + node.getDescription() + "\"");
 		
+		//indent
 		sb.append(StringUtilities.indent(level) + "\n");
+		
 		//calls visitPointsDatabase
 		node.getPointsDatabase().accept(this, newPair);
 		
@@ -53,6 +58,9 @@ public class UnparseVisitor implements ComponentNodeVisitor
        
 	}
 
+	/**
+	 * Populates string builder with segment information
+	 */
 	@Override
 	public Object visitSegmentNodeDatabase(SegmentNodeDatabase node, Object o)
 	{
@@ -64,11 +72,12 @@ public class UnparseVisitor implements ComponentNodeVisitor
 				
 		sb.append(StringUtilities.indent(level) + "Segments:\n" + StringUtilities.indent(level) + "{\n");
 		
-		//for each point node in our list indent 1 level in and print each point
+		//for each node, get the nodes that form segments with it
 		for(PointNode p : node.getAdjList().keySet()) {
 			
 				sb.append(StringUtilities.indent(level + 1) + p.getName() + " : ");
-			
+				
+				//append all the nodes that form a segment with p to string builder
 				for(PointNode val : node.getAdjList().get(p)) {
 						sb.append(val.getName() + "  ");
 				}
@@ -91,6 +100,9 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		return null;
 	}
 
+	/**
+	 * Indent's and adds "points" to string
+	 */
 	@Override
 	public Object visitPointNodeDatabase(PointNodeDatabase node, Object o)
 	{
@@ -102,6 +114,7 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		
 		sb.append(StringUtilities.indent(level) + "Points:\n" + StringUtilities.indent(level) +  "{\n");
 		
+		//Create new string builder 1 indent in to send to visitPointNode
 		AbstractMap.SimpleEntry<StringBuilder, Integer> newPair = new AbstractMap.SimpleEntry<>(sb, level +1);
 		
 		for(PointNode p : node.getPoints()) {
@@ -113,6 +126,9 @@ public class UnparseVisitor implements ComponentNodeVisitor
         return null;
 	}
 	
+	/**
+	 * Adds points to string
+	 */
 	@Override
 	public Object visitPointNode(PointNode node, Object o)
 	{
