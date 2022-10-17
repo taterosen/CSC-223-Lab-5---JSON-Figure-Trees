@@ -11,12 +11,18 @@ public interface ComponentNode
 	 */
 	void unparse(StringBuilder sb, int level);
 	
+	/**
+	 * General accept method to be overridden.
+	 * @param visitor
+	 * @param o
+	 * @return object
+	 */
 	Object accept(ComponentNodeVisitor visitor, Object o);
 	
 	/**
 	 * Indents the number of times specified by a given int.
 	 * @param level
-	 * @return
+	 * @return string of indentations
 	 */
 	default String indent(int level) {
 		String indents = "";
