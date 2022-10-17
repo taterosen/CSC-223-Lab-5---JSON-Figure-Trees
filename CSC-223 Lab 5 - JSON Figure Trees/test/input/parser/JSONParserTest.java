@@ -33,13 +33,14 @@ class JSONParserTest
 	}
 	
 	
-	  @Test void single_triangle_test() { ComponentNode node =
-	  JSONParserTest.runFigureParseTest("jsonfiles/single_triangle.json");
+	 @Test void single_triangle_test()
+	 {
+		 ComponentNode node = JSONParserTest.runFigureParseTest("jsonfiles/single_triangle.json");
 	  
-	  assertTrue(node instanceof FigureNode);
-	  
-	  StringBuilder sb = new StringBuilder(); node.unparse(sb, 0);
-	  System.out.println(sb.toString()); }
+		 assertTrue(node instanceof FigureNode);
+		 StringBuilder sb = new StringBuilder(); node.unparse(sb, 0);
+	  	 System.out.println(sb.toString());
+	  }
 	 
 	 
 	
