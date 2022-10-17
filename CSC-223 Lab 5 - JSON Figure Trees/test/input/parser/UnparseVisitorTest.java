@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 class UnparseVisitorTest {
 
-	
 	@Test
 	void SingleLineSegmentTest() {
 		

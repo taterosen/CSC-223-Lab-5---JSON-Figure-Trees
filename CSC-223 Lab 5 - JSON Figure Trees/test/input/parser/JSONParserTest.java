@@ -17,15 +17,13 @@ class JSONParserTest
 {
 
 
-	public static ComponentNode runFigureParseTest(String filename) { JSONParser
-		parser = new JSONParser();
+	public static ComponentNode runFigureParseTest(String filename) { 
+		JSONParser parser = new JSONParser();
 
-	String figureStr =
+		String figureStr =
 			utilities.io.FileUtilities.readFileFilterComments(filename);
-	System.out.print(figureStr); return parser.parse(figureStr); 
+		System.out.print(figureStr); return parser.parse(figureStr); 
 	}
-
-
 
 	@Test
 	void empty_json_string_test()
@@ -34,7 +32,6 @@ class JSONParserTest
 
 		assertThrows(ParseException.class, () -> { parser.parse("{}"); });
 	}
-
 
 	@Test void single_triangle_test()
 	{
@@ -47,9 +44,6 @@ class JSONParserTest
 				new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));		
 		System.out.println(sb.toString());
 	}
-
-
-
 
 	@Test 
 	void point_test() { 
@@ -64,19 +58,17 @@ class JSONParserTest
 		System.out.println(sb.toString()); 
 	}
 
-
-	
-	  @Test 
-	  void line_seg_test() { 
-		  ComponentNode node = JSONParserTest.runFigureParseTest("jsonfiles/lineseg.json");
+	@Test 
+	void line_seg_test() { 
+		ComponentNode node = JSONParserTest.runFigureParseTest("jsonfiles/lineseg.json");
 	  
-		  assertTrue(node instanceof FigureNode);
+		assertTrue(node instanceof FigureNode);
 	  
-		  StringBuilder sb = new StringBuilder(); 
-		  UnparseVisitor unparser = new UnparseVisitor();
-		  unparser.visitFigureNode((FigureNode)node,
+		StringBuilder sb = new StringBuilder(); 
+		UnparseVisitor unparser = new UnparseVisitor();
+		unparser.visitFigureNode((FigureNode)node,
 				new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));	  
-		  System.out.println(sb.toString()); 
+		System.out.println(sb.toString()); 
 	  }
 	
 	  @Test 
