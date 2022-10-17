@@ -41,7 +41,6 @@ class UnparseVisitorTest {
 				+ "}\n";
 		
 		assertEquals(expected, sb.toString());
-		System.out.print(sb.toString());
 	}
 	
 	@Test
