@@ -5,9 +5,6 @@
 //     |  \  /  |  \ |
 //     |___\/___|   \|
 //     A    C   D    G
-//
-
-
 { 
 "Figure" :
   { "Description" : "Three triangles glued by vertex in a row",
