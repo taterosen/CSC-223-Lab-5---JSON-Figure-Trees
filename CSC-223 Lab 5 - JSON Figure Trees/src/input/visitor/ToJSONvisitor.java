@@ -34,8 +34,12 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitFigureNode(FigureNode node, Object o)
 	{
+		// create JSONObject
 		JSONObject figure = new JSONObject();
 		
+		// get each of the three parts of a figure node:
+		// 	   description, points, segments
+		// as JSONObjects
 		JSONObject desc = new JSONObject();
 		desc.put(JSON_Constants.JSON_DESCRIPTION, node.getDescription());
 		
@@ -43,12 +47,14 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 		
 		JSONObject segments = (JSONObject) visitSegmentNodeDatabase(node.getSegments(), o);
 		
+		// convert to a JSONArray
 		LinkedHashSet<JSONObject> figureArray = new LinkedHashSet<JSONObject>();
 		figureArray.add(desc);
 		figureArray.add(points);
 		figureArray.add(segments);
 		JSONArray jsonFigureArray = new JSONArray(figureArray);
-		
+		 
+		// fill JSONObject
 		figure.put(JSON_Constants.JSON_FIGURE, jsonFigureArray);
 		
 		return figure;
@@ -62,12 +68,17 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	 * @param o
 	 */
 	@Override
-	public Object visitSegmentNodeDatabase(SegmentNodeDatabase node, Object o) {
+	public Object visitSegmentNodeDatabase(SegmentNodeDatabase node, Object o)
+	{
+		// create new JSONObject
 		JSONObject snd = new JSONObject();
 		
+		// get adjacency list info out of the node
 		HashMap<PointNode, LinkedHashSet<String>> adjacency = new HashMap<PointNode, LinkedHashSet<String>>();
+		// over the list of points in the segment node database
 		for (PointNode keyPoint : node.getAdjList().keySet())
 		{
+			// over the list of points that point is connected to 
 			LinkedHashSet<String> valuePoints = new LinkedHashSet<String>();
 			for (PointNode valuePoint : node.getAdjList().get(keyPoint))
 			{
@@ -76,8 +87,10 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 			adjacency.put(keyPoint, valuePoints);
 		}
 		
+		// convert HashMap to JSONArray
 		JSONArray jsonAdjLists = new JSONArray(adjacency);
 		
+		//fill JSONObject
 		snd.put(JSON_Constants.JSON_SEGMENTS, jsonAdjLists);
 		
 		return snd;
@@ -102,8 +115,12 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNode(PointNode node, Object o)
 	{
+		// create JSONObject
 		JSONObject point = new JSONObject();
 		
+		// get data from PointNode:
+		//    name, x, and y
+		// and fill JSONObject
 		point.put(JSON_Constants.JSON_NAME, node.getName());
 		point.put(JSON_Constants.JSON_X, node.getName());
 		point.put(JSON_Constants.JSON_Y, node.getName());
@@ -121,16 +138,20 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNodeDatabase(PointNodeDatabase node, Object o)
 	{
+		// create JSONObject
 		JSONObject pnd = new JSONObject();
 		
+		// for every PointNode, get the JSONObject for that point
 		LinkedHashSet<JSONObject> setOfPoints = new LinkedHashSet<JSONObject>();
 		for (PointNode point : node.getPoints())
 		{
 			setOfPoints.add((JSONObject) visitPointNode(point, o));                      
 		}
 		
+		// convert to JSONArray
 		JSONArray jsonPoints = new JSONArray(setOfPoints);
 		
+		// fill JSONObject
 		pnd.put(JSON_Constants.JSON_POINT_S, jsonPoints);
 		
 		return pnd;
