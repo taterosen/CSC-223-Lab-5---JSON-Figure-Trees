@@ -1,5 +1,10 @@
 package input.visitor;
 
+/**
+ * @author taterosen, reganrichardson, hannaking
+ * @date 10/12/2022
+ */
+
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Set;

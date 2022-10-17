@@ -1,12 +1,12 @@
+package input.visitor;
+
 /**
  * A visitor that will convert the AST of a geometry figure back into a JSONObject.
  * implements ComponentNodeVisitor
  * 
- * @author Hanna King
- * @date 10/16
+ * @author Hanna King, Tate Rosen, Regan Richardson
+ * @date 10/16/2022
  */
-
-package input.visitor;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -48,14 +48,13 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 		JSONObject segments = (JSONObject) visitSegmentNodeDatabase(node.getSegments(), o);
 		
 		// convert to a JSONArray
-		LinkedHashSet<JSONObject> figureArray = new LinkedHashSet<JSONObject>();
-		figureArray.add(desc);
-		figureArray.add(points);
-		figureArray.add(segments);
-		JSONArray jsonFigureArray = new JSONArray(figureArray);
+		LinkedHashSet<JSONObject> figureVals = new LinkedHashSet<JSONObject>();
+		figureVals.add(desc);
+		figureVals.add(points);
+		figureVals.add(segments);
 		 
 		// fill JSONObject
-		figure.put(JSON_Constants.JSON_FIGURE, jsonFigureArray);
+		figure.put(JSON_Constants.JSON_FIGURE, figureVals);
 		
 		return figure;
 	}
@@ -70,15 +69,15 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitSegmentNodeDatabase(SegmentNodeDatabase node, Object o)
 	{
-		// create new JSONObject
-		JSONObject snd = new JSONObject();
+		JSONObject JSONsegments = new JSONObject();
 		
-		// get adjacency list info out of the node
+		// create HashMap and get adjacency list info out of the database
 		HashMap<PointNode, LinkedHashSet<String>> adjacency = new HashMap<PointNode, LinkedHashSet<String>>();
-		// over the list of points in the segment node database
+		
+			// over the list of points in the segment node database
 		for (PointNode keyPoint : node.getAdjList().keySet())
 		{
-			// over the list of points that point is connected to 
+				// over the list of points that point is connected to 
 			LinkedHashSet<String> valuePoints = new LinkedHashSet<String>();
 			for (PointNode valuePoint : node.getAdjList().get(keyPoint))
 			{
@@ -90,10 +89,10 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 		// convert HashMap to JSONArray
 		JSONArray jsonAdjLists = new JSONArray(adjacency);
 		
-		//fill JSONObject
-		snd.put(JSON_Constants.JSON_SEGMENTS, jsonAdjLists);
-		
-		return snd;
+		// add string and segments JSONArray to return object
+		JSONsegments.put(JSON_Constants.JSON_SEGMENTS, jsonAdjLists);
+
+		return jsonAdjLists;
 	}
 
 	/**
@@ -110,7 +109,7 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	 * The JSON object contains a label and the three data in a PointNode: name, x, and y values
 	 * @return Object JSONObject representing the data in the PointNode
 	 * @param node PointNode to convert to JSONObject
-	 * @param o
+	 * @param o 
 	 */
 	@Override
 	public Object visitPointNode(PointNode node, Object o)
@@ -138,23 +137,23 @@ public class ToJSONvisitor implements ComponentNodeVisitor
 	@Override
 	public Object visitPointNodeDatabase(PointNodeDatabase node, Object o)
 	{
-		// create JSONObject
-		JSONObject pnd = new JSONObject();
+		JSONObject points = new JSONObject();
 		
-		// for every PointNode, get the JSONObject for that point
+		// for every PointNode, get the JSONObject for that point and put in hashset
 		LinkedHashSet<JSONObject> setOfPoints = new LinkedHashSet<JSONObject>();
+		
 		for (PointNode point : node.getPoints())
 		{
 			setOfPoints.add((JSONObject) visitPointNode(point, o));                      
 		}
 		
 		// convert to JSONArray
-		JSONArray jsonPoints = new JSONArray(setOfPoints);
+		JSONArray JSONpoints = new JSONArray(setOfPoints);
 		
-		// fill JSONObject
-		pnd.put(JSON_Constants.JSON_POINT_S, jsonPoints);
+		// add string and points JSONArray to return object
+		points.put(JSON_Constants.JSON_POINT_S, JSONpoints);
 		
-		return pnd;
+		return points;
 	}
 
 }
