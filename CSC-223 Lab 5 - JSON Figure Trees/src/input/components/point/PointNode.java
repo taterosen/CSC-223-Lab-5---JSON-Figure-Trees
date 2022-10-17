@@ -93,16 +93,6 @@ public class PointNode implements ComponentNode{
 	public String toString() {
 		return this.getName() + "(" + this.getX() + ", " + this.getY() + ")";
 	}
-
-	/**
-	 * Unparses the parts of a PointNode and puts them into
-	 * a given StringBuilder object.
-	 */
-	@Override
-	public void unparse(StringBuilder sb, int level) {
-		sb.append(indent(level) +"Point(" + this._name + ")(" + this._x + 
-					", " + this._y + ")\n");
-	}
 	
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o)

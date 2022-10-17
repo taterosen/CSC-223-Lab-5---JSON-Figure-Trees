@@ -1,8 +1,6 @@
 package input.components;
 
-import java.util.Set;
 
-import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
 import input.visitor.ComponentNodeVisitor;
@@ -28,30 +26,6 @@ public class FigureNode implements ComponentNode
 		_description = description;
 		_points = points;
 		_segments = segments;
-	}
-
-	/**
-	 * Unparses the parts of a FigureNode and puts them into
-	 * a given StringBuilder object.
-	 * @param sb Stringbuilder to hold final result
-	 * @param level int indent level
-	 */
-	@Override
-	public void unparse(StringBuilder sb, int level)
-	{
-		sb.append(indent(level) + "Figure\n{\n");
-		
-        // unparse description
-		sb.append(indent(level + 1) + "Description : \"" + _description + "\"\n");
-		
-		//unparse points
-		this._points.unparse(sb, level + 1);
-		
-		//unparse segments
-		this._segments.unparse(sb, level + 1);
-		
-		sb.append(indent(level) + "}\n");
-		
 	}
 	
 	@Override

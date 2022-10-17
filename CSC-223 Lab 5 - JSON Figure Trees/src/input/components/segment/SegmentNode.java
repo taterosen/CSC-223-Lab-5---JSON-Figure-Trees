@@ -76,6 +76,4 @@ public class SegmentNode implements ComponentNode{
 		return visitor.visitSegmentNode(this,  o);
 	}
 
-	@Override
-	public void unparse(StringBuilder sb, int level) {}
 }

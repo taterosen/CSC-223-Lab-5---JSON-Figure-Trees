@@ -115,28 +115,6 @@ public class SegmentNodeDatabase implements ComponentNode {
         Set<SegmentNode> set = new HashSet<>(this.asSegmentList());
         return new ArrayList<>(set);
     }
-
-    /**
-	 * Unparses the parts of a SegmentNodeDataBase and puts them into
-	 * a given StringBuilder object.
-	 */
-	@Override
-	public void unparse(StringBuilder sb, int level) {
-		sb.append(indent(level) + "Segments:\n" + indent(level) + "{\n");
-		
-		for(PointNode p : this._adjLists.keySet()) {
-			
-				sb.append(indent(level + 1) + p.getName() + " : ");
-			
-				for(PointNode val : this._adjLists.get(p)) {
-						sb.append(val.getName() + "  ");
-				}
-				
-				sb.append("\n");
-			}
-		
-		sb.append(indent(level) + "}\n");
-	}
 	
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o)

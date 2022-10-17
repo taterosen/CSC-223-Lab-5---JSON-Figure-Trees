@@ -5,13 +5,6 @@ import input.visitor.ComponentNodeVisitor;
 public interface ComponentNode
 {
 	/**
-	 * General unparse method to be overridden.
-	 * @param sb
-	 * @param level
-	 */
-	void unparse(StringBuilder sb, int level);
-	
-	/**
 	 * General accept method to be overridden.
 	 * @param visitor
 	 * @param o

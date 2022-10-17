@@ -124,21 +124,6 @@ public class PointNodeDatabase implements ComponentNode {
 		return null;
 
 	}
-	
-	/**
-	 * Unparses the parts of a PointNodeDatabase and puts them into
-	 * a given StringBuilder object.
-	 */
-	@Override
-	public void unparse(StringBuilder sb, int level) {
-		sb.append(indent(level) + "Points:\n" + indent(level) +  "{\n");
-		
-		for(PointNode p : _points) {
-			p.unparse(sb, level + 1);
-		}
-		
-		sb.append(indent(level) + "}\n");
-	}
 
 	@Override
 	public Object accept(ComponentNodeVisitor visitor, Object o)

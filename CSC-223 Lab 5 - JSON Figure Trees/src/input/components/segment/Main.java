@@ -1,5 +1,6 @@
 package input.components.segment;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.Set;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
-
+import input.visitor.UnparseVisitor;
 import input.components.FigureNode;
 
 public class Main {
@@ -48,7 +49,9 @@ public class Main {
 		FigureNode f = new FigureNode("Test", points, segs);
 		
 		StringBuilder sb = new StringBuilder();
-		f.unparse(sb, 0);
+		UnparseVisitor unparser = new UnparseVisitor();
+		unparser.visitFigureNode((FigureNode)f,
+		 new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
 		System.out.println(sb.toString());
 	}
 

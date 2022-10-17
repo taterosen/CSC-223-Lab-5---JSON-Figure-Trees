@@ -2,7 +2,6 @@ package input.parser;
 import input.visitor.UnparseVisitor;
 import input.components.*;
 import input.components.FigureNode;
-import utilities.io.*;
 import parser.JSONParser;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -6,8 +6,6 @@ package input.visitor;
  */
 
 import java.util.AbstractMap;
-import java.util.Map;
-import java.util.Set;
 
 import input.components.*;
 import input.components.point.*;
