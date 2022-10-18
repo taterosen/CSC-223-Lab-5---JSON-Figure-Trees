@@ -13,27 +13,28 @@ import java.util.Map.Entry;
  * @author brycenaddison, taterosen, georgelamb
  * @date Wed Aug 31 2022
  */
-public class SegmentNodeDatabase implements ComponentNode {
+public class SegmentNodeDatabase implements ComponentNode
+{
     protected Map<PointNode, Set<PointNode>> _adjLists;
 
     /**
      * Create a new empty SegmentNodeDatabase.
      */
     public SegmentNodeDatabase() {
-        this._adjLists = new HashMap<>();
+        this._adjLists = new TreeMap<>();
     }
     
-    public Map<PointNode, Set<PointNode>> getAdjList() {
-    	return _adjLists;
-    }
+    public Map<PointNode, Set<PointNode>> getAdjList() { return _adjLists; }
 
     /**
      * Create a new SegmentNode database from a map of points and adjacency lists.
      *
      * @param adjLists A map of adjacency lists to create the database from
      */
-    public SegmentNodeDatabase(Map<PointNode, Set<PointNode>> adjLists) {
+    public SegmentNodeDatabase(Map<PointNode, Set<PointNode>> adjLists)
+    {
         this._adjLists = adjLists;
+        //sortByKey();
     }
 
     /**
@@ -50,13 +51,16 @@ public class SegmentNodeDatabase implements ComponentNode {
     /**
      * Add an edge going in one direction. Ex: For a segment AB, add the vector AB and
      * not the vector BA.
+     * 
+     * 10/18 changed for ToJSONvisitor
      *
      * @param a the key point
      * @param b the point to add to the key point's adjacency list
      */
-    private void addDirectedEdge(PointNode a, PointNode b) {
-        Set<PointNode> adjList = this._adjLists.computeIfAbsent(a, k -> new HashSet<>());
+    public void addDirectedEdge(PointNode a, PointNode b) {
+        Set<PointNode> adjList = this._adjLists.computeIfAbsent(a, k -> new TreeSet<>());
         adjList.add(b);
+        //sortByKey();
     }
 
     /**
@@ -112,7 +116,7 @@ public class SegmentNodeDatabase implements ComponentNode {
      * database.
      */
     public List<SegmentNode> asUniqueSegmentList() {
-        Set<SegmentNode> set = new HashSet<>(this.asSegmentList());
+        Set<SegmentNode> set = new TreeSet<>(this.asSegmentList());
         return new ArrayList<>(set);
     }
 	

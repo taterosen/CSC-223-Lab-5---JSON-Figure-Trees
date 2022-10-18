@@ -162,12 +162,9 @@ public class JSONParser
 			for(int j = 0; j < JSONedgeEnds.length(); j++)
 			{
 				//adds each point edgeStart connects to using name string pulled from JSONedgeEnds to get from PND
-				builder.addSegmentToDatabase(snd, edgeStart, points.getPoint(JSONedgeEnds.getString(j)));
-				
+				builder.addSegmentToDatabase(snd, edgeStart, points.getPoint(JSONedgeEnds.getString(j)));	
 			}			
-		}
-		
+		}	
 		return snd;
 	}
-	
 }

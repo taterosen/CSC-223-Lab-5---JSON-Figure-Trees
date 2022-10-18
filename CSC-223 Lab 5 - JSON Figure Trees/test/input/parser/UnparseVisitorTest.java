@@ -10,8 +10,35 @@ import java.util.AbstractMap;
 
 import org.junit.jupiter.api.Test;
 
-class UnparseVisitorTest {
-
+class UnparseVisitorTest
+{
+	@Test
+	void point_test()
+	{
+		JSONParser Parse = new JSONParser();
+		String figureStr = utilities.io.FileUtilities.readFileFilterComments("jsonfiles/point.json");
+		ComponentNode node = Parse.parse(figureStr);
+		
+		//pack the string builder and the level to send to figure node
+		StringBuilder sb = new StringBuilder();
+		UnparseVisitor unparser = new UnparseVisitor();
+		unparser.visitFigureNode((FigureNode)node, new AbstractMap.SimpleEntry<StringBuilder, Integer>(sb, 0));
+		
+		String expected = "Figure \n"
+				+ "{\n"
+				+ "    Description : \"A single point\"\n"
+				+ "    Points:\n"
+				+ "    {\n"
+				+ "        Point(A)(0.0, 0.0)\n"
+				+ "    }\n"
+				+ "    Segments:\n"
+				+ "    {\n"
+				+ "    }\n"
+				+ "}\n";
+		
+		assertEquals(expected, sb.toString());
+	}
+	
 	@Test
 	void SingleLineSegmentTest() {
 		
@@ -34,7 +61,6 @@ class UnparseVisitorTest {
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        B : A  \n"
 				+ "        A : B  \n"
 				+ "    }\n"
 				+ "}\n";
@@ -65,9 +91,8 @@ class UnparseVisitorTest {
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        C : A  B  \n"
-				+ "        B : A  C  \n"
 				+ "        A : B  C  \n"
+				+ "        B : C  \n"
 				+ "    }\n"
 				+ "}\n";
 		
@@ -98,10 +123,9 @@ class UnparseVisitorTest {
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        B : A  D  \n"
-				+ "        C : A  D  \n"
-				+ "        D : B  C  \n"
-				+ "        A : C  B  \n"
+				+ "        A : B  C  \n"
+				+ "        B : D  \n"
+				+ "        C : D  \n"
 				+ "    }\n"
 				+ "}\n";
 		
@@ -134,12 +158,11 @@ class UnparseVisitorTest {
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        C : D  B  \n"
-				+ "        D : C  E  \n"
-				+ "        E : D  F  \n"
-				+ "        B : C  A  \n"
 				+ "        A : B  \n"
-				+ "        F : E  \n"
+				+ "        B : C  \n"
+				+ "        C : D  \n"
+				+ "        D : E  \n"
+				+ "        E : F  \n"
 				+ "    }\n"
 				+ "}\n";
 		
@@ -163,19 +186,18 @@ class UnparseVisitorTest {
 				+ "    Description : \"Crossing symmetric triangle construction.\"\n"
 				+ "    Points:\n"
 				+ "    {\n"
-				+ "        Point(D)(0.0, 0.0)\n"
-				+ "        Point(E)(6.0, 0.0)\n"
+				+ "        Point(A)(3.0, 6.0)\n"
 				+ "        Point(B)(2.0, 4.0)\n"
 				+ "        Point(C)(4.0, 4.0)\n"
-				+ "        Point(A)(3.0, 6.0)\n"
+				+ "        Point(D)(0.0, 0.0)\n"
+				+ "        Point(E)(6.0, 0.0)\n"
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        E : B  C  D  \n"
-				+ "        D : E  B  C  \n"
-				+ "        C : E  A  B  D  \n"
-				+ "        B : E  A  C  D  \n"
 				+ "        A : B  C  \n"
+				+ "        B : C  D  E  \n"
+				+ "        C : D  E  \n"
+				+ "        D : E  \n"
 				+ "    }\n"
 				+ "}\n";
 		
@@ -204,15 +226,13 @@ class UnparseVisitorTest {
 				+ "        Point(C)(6.0, 3.0)\n"
 				+ "        Point(D)(3.0, 7.0)\n"
 				+ "        Point(E)(-2.0, 4.0)\n"
-				+ "        Point(F)(26.0, 0.0)\n"
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        E : A  B  C  D  \n"
-				+ "        C : A  B  E  D  \n"
-				+ "        B : A  C  E  D  \n"
-				+ "        A : B  C  E  D  \n"
-				+ "        D : A  B  C  E  \n"
+				+ "        A : B  C  D  E  \n"
+				+ "        B : C  D  E  \n"
+				+ "        C : D  E  \n"
+				+ "        D : E  \n"
 				+ "    }\n"
 				+ "}\n";
 		
@@ -246,13 +266,12 @@ class UnparseVisitorTest {
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        G : F  E  \n"
-				+ "        F : G  E  \n"
-				+ "        E : F  G  C  D  \n"
-				+ "        D : C  E  \n"
-				+ "        C : A  B  D  E  \n"
-				+ "        B : A  C  \n"
 				+ "        A : B  C  \n"
+				+ "        B : C  \n"
+				+ "        C : D  E  \n"
+				+ "        D : E  \n"
+				+ "        E : F  G  \n"
+				+ "        F : G  \n"
 				+ "    }\n"
 				+ "}\n";
 		
@@ -288,19 +307,17 @@ class UnparseVisitorTest {
 				+ "    }\n"
 				+ "    Segments:\n"
 				+ "    {\n"
-				+ "        H : F  I  \n"
-				+ "        G : I  E  \n"
-				+ "        F : H  D  \n"
-				+ "        I : G  H  C  D  \n"
-				+ "        B : A  D  \n"
 				+ "        A : B  C  \n"
-				+ "        E : G  C  \n"
-				+ "        D : F  I  B  C  \n"
-				+ "        C : I  A  E  D  \n"
+				+ "        B : D  \n"
+				+ "        C : D  E  I  \n"
+				+ "        D : F  I  \n"
+				+ "        E : G  \n"
+				+ "        F : H  \n"
+				+ "        G : I  \n"
+				+ "        H : I  \n"
 				+ "    }\n"
 				+ "}\n";
 		
 		assertEquals(expected, sb.toString());
 	}
 }
-

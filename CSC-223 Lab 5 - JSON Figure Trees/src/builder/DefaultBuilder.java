@@ -33,7 +33,9 @@ public class DefaultBuilder
     
     public void addSegmentToDatabase(SegmentNodeDatabase segments, PointNode from, PointNode to)
     {
-    	if (segments != null) segments.addUndirectedEdge(from, to);
+    	if (segments == null) return;
+    	if (from.getName().compareTo(to.getName()) < 0) segments.addDirectedEdge(from, to);
+    	else segments.addDirectedEdge(to,  from);
     }
     
     public SegmentNode buildSegmentNode(PointNode pt1, PointNode pt2)

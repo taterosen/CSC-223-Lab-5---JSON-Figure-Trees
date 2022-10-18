@@ -1,8 +1,8 @@
 package input.components.point;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import input.components.ComponentNode;
 import input.visitor.ComponentNodeVisitor;
@@ -21,7 +21,7 @@ public class PointNodeDatabase implements ComponentNode {
 	 */
 	public PointNodeDatabase() {
 
-		_points = new LinkedHashSet<PointNode>();
+		_points = new TreeSet<PointNode>();
 
 	}
 	
@@ -35,7 +35,7 @@ public class PointNodeDatabase implements ComponentNode {
 	 */
 	public PointNodeDatabase(List<PointNode> list) {
 
-		_points = new LinkedHashSet<PointNode>(list);
+		_points = new TreeSet<PointNode>(list);
 
 	}
 	
