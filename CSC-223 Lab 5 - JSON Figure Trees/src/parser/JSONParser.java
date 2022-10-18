@@ -1,5 +1,5 @@
 /**
- * Parses from a JSON file to a tree and unparses in reverse
+ * Parses from a JSON file to an abstract syntax tree (AST)
  * JSON file looks like:
  * { "Triangle" :
  *   { "Description" : "triangle with three points",
@@ -75,7 +75,7 @@ public class JSONParser
 	 */
 	public ComponentNode parse(String str) throws ParseException
 	{
-		// Parsing is accomplished via the JSONTokenizer class.
+		// Parsing is accomplished via the JSONTokenizer class
 		JSONTokener tokenizer = new JSONTokener(str);
 		JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
 		

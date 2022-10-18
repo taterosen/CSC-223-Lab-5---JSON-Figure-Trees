@@ -1,5 +1,3 @@
-package input.visitor;
-
 /**
  * A visitor that will convert the AST of a geometry figure back into a JSONObject.
  * implements ComponentNodeVisitor
@@ -8,13 +6,14 @@ package input.visitor;
  * @date 10/16/2022
  */
 
+package input.visitor;
+
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import input.components.ComponentNode;
 import input.components.FigureNode;
 import input.components.point.PointNode;
 import input.components.point.PointNodeDatabase;

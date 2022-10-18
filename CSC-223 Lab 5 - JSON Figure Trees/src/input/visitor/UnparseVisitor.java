@@ -1,9 +1,10 @@
-package input.visitor;
-
 /**
- * @author taterosen, reganrichardson, hannaking
+ * Populates a StringBuilder from AST nodes
+ * 
+ * @author Regan Richardson, Tate Rosen, Hanna King
  * @date 10/12/2022
  */
+package input.visitor;
 
 import java.util.AbstractMap;
 
@@ -13,13 +14,6 @@ import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 import utilities.io.StringUtilities;
 
-//
-// A JSON file may contain:
-//
-//     Figure:
-//       Points
-//       Segments
-//
 public class UnparseVisitor implements ComponentNodeVisitor
 {
 	/**
@@ -76,17 +70,18 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		sb.append(StringUtilities.indent(level) + "Segments:\n" + StringUtilities.indent(level) + "{\n");
 		
 		//for each node, get the nodes that form segments with it
-		for(PointNode p : node.getAdjList().keySet()) {
-			
-				sb.append(StringUtilities.indent(level + 1) + p.getName() + " : ");
+		for(PointNode p : node.getAdjList().keySet())
+		{
+			sb.append(StringUtilities.indent(level + 1) + p.getName() + " : ");
 				
-				//append all the nodes that form a segment with p to string builder
-				for(PointNode val : node.getAdjList().get(p)) {
-						sb.append(val.getName() + "  ");
-				}
-				
-				sb.append("\n");
+			//append all the nodes that form a segment with p to string builder
+			for(PointNode val : node.getAdjList().get(p))
+			{
+					sb.append(val.getName() + "  ");
 			}
+				
+			sb.append("\n");
+		}
 
 		sb.append(StringUtilities.indent(level) + "}\n");
 		
@@ -98,10 +93,7 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	 * uses the Adjacency list representation
 	 */
 	@Override
-	public Object visitSegmentNode(SegmentNode node, Object o)
-	{
-		return null;
-	}
+	public Object visitSegmentNode(SegmentNode node, Object o) { return null; }
 
 	/**
 	 * Indent's and adds "points" to string
@@ -120,7 +112,8 @@ public class UnparseVisitor implements ComponentNodeVisitor
 		//Create new string builder 1 indent in to send to visitPointNode
 		AbstractMap.SimpleEntry<StringBuilder, Integer> newPair = new AbstractMap.SimpleEntry<>(sb, level +1);
 		
-		for(PointNode p : node.getPoints()) {
+		for(PointNode p : node.getPoints())
+		{
 			p.accept(this, newPair);
 		}
 		
@@ -136,13 +129,13 @@ public class UnparseVisitor implements ComponentNodeVisitor
 	public Object visitPointNode(PointNode node, Object o)
 	{
 		// Unpack the input object containing a Stringbuilder and an indentation level
-				@SuppressWarnings("unchecked")
-				AbstractMap.SimpleEntry<StringBuilder, Integer> pair = (AbstractMap.SimpleEntry<StringBuilder, Integer>)(o);
-				StringBuilder sb = pair.getKey();
-				int level = pair.getValue();
+		@SuppressWarnings("unchecked")
+		AbstractMap.SimpleEntry<StringBuilder, Integer> pair = (AbstractMap.SimpleEntry<StringBuilder, Integer>)(o);
+		StringBuilder sb = pair.getKey();
+		int level = pair.getValue();
 				
-				sb.append(StringUtilities.indent(level) +"Point(" + node.getName() + ")(" + node.getX() + 
-						", " + node.getY() + ")\n");
+		sb.append(StringUtilities.indent(level) +"Point(" + node.getName() + ")(" + node.getX() + 
+		          ", " + node.getY() + ")\n");
         
         return null;
 	}

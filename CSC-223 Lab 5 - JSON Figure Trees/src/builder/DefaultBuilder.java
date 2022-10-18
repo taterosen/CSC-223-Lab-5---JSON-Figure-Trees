@@ -1,3 +1,10 @@
+/*
+ * A Builder design pattern for constructing a geometry hierarchy.
+ * 
+ * The default builder allows JSON file parsing without constructing
+ * the corresponding hierarchy, saving effort.
+ */
+
 package builder;
 
 import java.util.List;
@@ -7,12 +14,7 @@ import input.components.point.*;
 import input.components.segment.SegmentNode;
 import input.components.segment.SegmentNodeDatabase;
 
-/*
- * A Builder design pattern for constructing a geometry hierarchy.
- * 
- * The default builder allows JSON file parsing without constructing
- * the corresponding hierarchy.
- */
+
 public class DefaultBuilder
 {
 	public DefaultBuilder() { }
